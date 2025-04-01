@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- Title and Meta Description will be set dynamically -->
+    <title>Carregando Post... - Blog C3B</title>
+    <meta name="description" content="Um post no blog do C3B." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../src/favicon.png" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+        rel="stylesheet">
+    <!-- Include Mono font if needed for [RAW] blocks -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
+
+
+    <!-- SEO and Social Meta Tags (Placeholders - will be updated by JS) -->
+    <meta name="keywords" content="C3B, ctresb, blog" />
+    <meta name="author" content="C3B" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Blog do C3B" />
+    <meta property="og:description" content="Um post no blog do C3B." />
+    <meta property="og:image" content="https://ctresb.com/src/meta.jpg" />
+    <meta property="og:url" content="https://ctresb.com" /> <!-- Update Canonical/URL -->
+    <meta property="og:type" content="article" /> <!-- Use article type -->
+    <meta property="og:site_name" content="C3B" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blog do C3B" />
+    <meta name="twitter:description" content="Um post no blog do C3B." />
+    <meta name="twitter:image" content="https://ctresb.com/src/meta.jpg" />
+    <meta name="twitter:site" content="@ctresb_" />
+    <meta name="twitter:creator" content="@ctresb_" />
+    <link rel="canonical" href="https://ctresb.com" /> <!-- Update Canonical -->
+
+
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --link-color: #007bff;
+            --link-hover-color: #0056b3;
+            --post-bg: #fff;
+            --post-shadow: rgba(0,0,0,0.07);
+            --post-border-light: #eee;
+            --heading-color: #111;
+            --subheading-color: #222;
+            --subheading2-color: #333;
+            --meta-color: #777;
+            --back-link-color: #555;
+            --tag-bg: #e2eafc;
+            --tag-text: #003d99;
+            --tag-border: transparent; /* Added for consistency */
+            --quote-border: #c4e0ff;
+            --quote-text: #555;
+            --raw-bg: #eef1f5;
+            --raw-border: #d1d9e3;
+            --raw-text: #2d3748;
+            --message-color: #666;
+            --image-shadow: rgba(0,0,0,0.1);
+            --image-border-radius: 4px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                 /* Dark Mode Colors - Based on index/blog.html */
+                --bg-color: #363636;
+                --text-color: #f3f3f3;
+                --link-color: #ffffff;
+                --link-hover-color: #dddddd;
+                --post-bg: #444444; /* From .item-alt bg */
+                --post-shadow: rgba(0,0,0,0.25);
+                --post-border-light: #5a5a5a; /* Darker border */
+                --heading-color: #f3f3f3;
+                --subheading-color: #ededed;
+                --subheading2-color: #e0e0e0;
+                --meta-color: #aaaaaa;
+                --back-link-color: #aaaaaa;
+                --tag-bg: #1860b9; /* From dark li bg */
+                --tag-text: #f3f3f3; /* From dark li text */
+                --tag-border: #3590ff; /* From dark li border */
+                --quote-border: #3590ff; /* Match tag border */
+                --quote-text: #cccccc;
+                --raw-bg: #2d2d2d; /* Darker code bg */
+                --raw-border: #555555;
+                --raw-text: #e0e0e0;
+                --message-color: #aaaaaa;
+                --image-shadow: rgba(0,0,0,0.2);
+                /* Keep image border radius */
+            }
+
+             /* Optional: Add slight border to dark tag for definition */
+            .post-meta .tag {
+                 border: 1px solid var(--tag-border);
+                 padding: 2px 7px; /* Adjust padding slightly for border */
+            }
+             /* Add border to images in dark mode? Optional */
+             /* .post-image-main img, .ftt-image { border: 1px solid var(--raw-border); } */
+        }
+
+
+        /* === Base Styles === */
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            box-sizing: border-box;
+            font-family: "Fraunces", serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7; /* Good baseline for reading */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+
+        main {
+           flex-grow: 1;
+           padding-bottom: 40px; /* Space at the bottom */
+        }
+
+        /* Links style */
+        a {
+            text-decoration: none;
+            color: var(--link-color);
+            font-weight: 600; /* Make links slightly bolder */
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--link-hover-color);
+        }
+
+        /* === Post Layout Styles === */
+        .post-container {
+            max-width: 750px; /* Slightly narrower for better reading */
+            margin: 30px auto; /* Center container */
+            background-color: var(--post-bg);
+            padding: 30px 40px; /* More padding */
+            border-radius: 5px;
+            box-shadow: 0 3px 8px var(--post-shadow);
+             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-link {
+             display: block;
+             max-width: 750px;
+             margin: 20px auto 0; /* Position above container */
+             padding: 0 10px;
+             font-size: 0.9em;
+             color: var(--back-link-color);
+        }
+         .back-link:hover {
+             color: var(--link-color); /* Use main link color on hover */
+         }
+
+
+        .post-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--post-border-light);
+            transition: border-color 0.3s ease;
+        }
+
+        .post-header h1 {
+             font-size: 2.6em; /* Larger title */
+             line-height: 1.3;
+             margin-bottom: 15px;
+             color: var(--heading-color);
+             text-align: left; /* Align post title left */
+        }
+
+        .post-meta {
+            font-size: 0.9em;
+            color: var(--meta-color);
+        }
+
+        .post-meta .tag {
+            display: inline-block;
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin-left: 15px;
+            font-weight: 600;
+            border: 1px solid transparent; /* Base border */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .post-image-main {
+            margin-bottom: 30px;
+        }
+
+        .post-image-main img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--image-border-radius);
+            box-shadow: 0 2px 5px var(--image-shadow);
+        }
+
+
+        /* === FTT Element Styles === */
+        #post-content > *:first-child {
+            margin-top: 0;
+        }
+        #post-content > *:last-child {
+            margin-bottom: 0;
+        }
+
+        .ftt-title { /* Corresponds to [T] */
+            font-size: 2em; /* Use H2 size within content */
+            font-weight: 800;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+            color: var(--subheading-color);
+        }
+
+        .ftt-subtitle { /* Corresponds to [S] */
+            font-size: 1.6em; /* Use H3 size */
+            font-weight: 700;
+            margin-top: 1.5em;
+            margin-bottom: 0.7em;
+            line-height: 1.4;
+            color: var(--subheading2-color);
+        }
+
+        .ftt-paragraph { /* Corresponds to [P] */
+            margin-bottom: 1.2em;
+            font-size: 1.05rem; /* Slightly larger than body default */
+            color: var(--text-color); /* Explicitly set for cascade */
+        }
+
+        .ftt-quote { /* Corresponds to [Q] */
+            border-left: 4px solid var(--quote-border);
+            padding-left: 1.5em;
+            margin: 1.8em 0;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--quote-text);
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .ftt-quote p { /* Style paragraph inside quote if needed */
+            margin-bottom: 0.5em;
+        }
+        .ftt-quote p:last-child {
+             margin-bottom: 0;
+        }
+
+        .ftt-image { /* Corresponds to [IMG] */
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 2em auto; /* Center images */
+            border-radius: var(--image-border-radius);
+            box-shadow: 0 2px 6px var(--image-shadow);
+        }
+
+        .ftt-bold { /* Corresponds to [B] */
+            font-weight: 800; /* Make bold stand out more */
+            color: inherit; /* Ensure it inherits text color */
+        }
+
+        .ftt-italic { /* Corresponds to [I] */
+            font-style: italic;
+            color: inherit;
+        }
+
+        .ftt-link { /* Corresponds to [L] - Use standard link styles */
+           /* Styles inherited from base 'a' */
+        }
+
+        .ftt-raw { /* Corresponds to [RAW] */
+            display: block;
+            background-color: var(--raw-bg);
+            border: 1px solid var(--raw-border);
+            padding: 15px;
+            margin: 1.8em 0;
+            font-family: 'Source Code Pro', Menlo, Monaco, Consolas, "Courier New", monospace; /* Monospace font */
+            font-size: 0.9rem;
+            color: var(--raw-text);
+            white-space: pre-wrap; /* Wrap long lines */
+            overflow-x: auto; /* Allow horizontal scroll if needed */
+            word-break: break-all; /* Break long words/strings */
+            border-radius: 4px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* === Loading/Error Styles === */
+        .message {
+            text-align: center;
+            padding: 40px 20px;
+            font-style: italic;
+            color: var(--message-color);
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .post-container {
+                padding: 20px 25px; /* Less padding on mobile */
+                margin: 20px 15px; /* Less horizontal margin */
+            }
+             .post-header h1 {
+                 font-size: 2.1em; /* Slightly smaller title */
+            }
+            .ftt-title {
+                 font-size: 1.7em;
+            }
+            .ftt-subtitle {
+                 font-size: 1.4em;
+            }
+            .ftt-paragraph {
+                font-size: 1rem; /* Closer to standard on mobile */
+            }
+             .ftt-quote {
+                 padding-left: 1em;
+                 font-size: 1rem;
+             }
+             .ftt-raw {
+                 font-size: 0.85rem;
+                 padding: 10px;
+             }
+             .back-link {
+                 margin: 15px auto 0;
+                 padding: 0 15px; /* Align with container margin */
+             }
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <a href="../" class="back-link">← Voltar para o Blog</a>
+
+    <main id="main-content">
+        <!-- Post will be loaded here -->
+        <div class="message" id="loading-message">Carregando post...</div>
+    </main>
+
+    <!-- Import FTT Module -->
+    <script type="module">
+        import { FTT } from '../libs/ftt.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContentElement = document.getElementById('main-content');
+            const loadingMessageElement = document.getElementById('loading-message');
+            const postsJsonPath = '../posts.json'; // Path relative to post/index.html
+
+            // Function to format date (simplified, adjust as needed)
+            function formatPostDate(dateTimeString) {
+                if (!dateTimeString) return null;
+                try {
+                    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const date = new Date(dateTimeString);
+                    if (isNaN(date.getTime())) throw new Error('Invalid date');
+                    return date.toLocaleDateString('pt-BR', dateOptions);
+                } catch (e) {
+                    console.error(`Erro ao formatar data: ${dateTimeString}`, e);
+                    return null;
+                }
+            }
+
+            // Function to update meta tags
+            function updateMetaTags(post) {
+                const base_url = "https://ctresb.com"; // Your site's base URL
+                const post_url = `${base_url}/post/${post.slug}`; // Construct canonical URL
+
+                document.title = `${post.title} - Blog C3B`;
+
+                // Helper to set meta tag content
+                const setMeta = (nameOrProperty, value) => {
+                    const selector = nameOrProperty.startsWith('og:') ? `meta[property="${nameOrProperty}"]` : `meta[name="${nameOrProperty}"]`;
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        element.setAttribute('content', value);
+                    } else {
+                        console.warn(`Meta tag not found: ${nameOrProperty}`);
+                    }
+                };
+
+                setMeta('description', post.description);
+                setMeta('keywords', `C3B, ctresb, blog, ${post.tag}, ${post.title.split(' ').slice(0,3).join(', ')}`); // Add tag/title keywords
+                setMeta('og:title', post.title);
+                setMeta('og:description', post.description);
+                setMeta('og:url', post_url);
+                setMeta('twitter:title', post.title);
+                setMeta('twitter:description', post.description);
+
+                // Update image meta tags only if post has an image
+                 // Important: Use absolute URL for OG/Twitter images
+                const imageUrl = post.Image ? `${base_url}/${post.Image.startsWith('./') ? post.Image.substring(2) : post.Image}` : `${base_url}/src/meta.jpg`;
+                setMeta('og:image', imageUrl);
+                setMeta('twitter:image', imageUrl);
+
+                // Update canonical URL
+                 const canonicalLink = document.querySelector('link[rel="canonical"]');
+                 if (canonicalLink) {
+                     canonicalLink.setAttribute('href', post_url);
+                 }
+            }
+
+
+            // --- Main Logic ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('');
+
+            if (!slug) {
+                mainContentElement.innerHTML = '<div class="message">Erro: Slug do post não encontrado na URL.</div>';
+                return;
+            }
+
+            fetch(postsJsonPath)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+                    return response.json();
+                })
+                .then(posts => {
+                    const postData = posts.find(p => p.slug === slug);
+
+                    if (!postData) {
+                        throw new Error(`Post com slug "${slug}" não encontrado.`);
+                    }
+
+                    // Update Meta Tags *before* rendering content
+                    updateMetaTags(postData);
+
+                    // Instantiate FTT parser
+                    const ftt = new FTT();
+                    const htmlContent = ftt.convertToHtml(postData.Content || ''); // Use content or empty string
+
+                    // Prepare post date
+                    const formattedDate = formatPostDate(postData.datetime);
+
+                    // Build the post HTML structure
+                    let postHtml = `
+                        <div class="post-container">
+                            <div class="post-header">
+                                <h1>${postData.title}</h1>
+                                <p class="post-meta">
+                                    ${formattedDate ? `<span>${formattedDate}</span>` : ''}
+                                    ${postData.tag ? `<span class="tag">${postData.tag}</span>` : ''}
+                                </p>
+                            </div>
+                    `;
+
+                    // Add main image if it exists
+                    if (postData.Image) {
+                         // Construct image path relative to SITE ROOT, not this file
+                         const imagePath = postData.Image.startsWith('./') ? `.${postData.Image}` : postData.Image; // Prepend '.' if needed for relative path from root
+                        postHtml += `
+                            <div class="post-image-main">
+                                <img src="${imagePath}" alt="Imagem principal do post: ${postData.title}">
+                            </div>
+                        `;
+                    }
+
+                    postHtml += `
+                            <div id="post-content">
+                                ${htmlContent}
+                            </div>
+                        </div>
+                    `;
+
+                    // Replace loading message with post content
+                    mainContentElement.innerHTML = postHtml;
+
+                })
+                .catch(error => {
+                    console.error('Falha ao carregar ou processar o post:', error);
+                    mainContentElement.innerHTML = `<div class="message">Ocorreu um erro ao carregar o post: ${error.message}</div>`;
+                });
+        });
+    </script>
+
+</body>
+</html>

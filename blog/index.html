@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog - C3B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="src/favicon.png" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Descrição e Palavras-chave para SEO -->
+    <meta name="description" content="Meu blog pessoal onde compartilho atualizações de projetos, pensamentos aleatórios e descobertas." />
+    <meta name="keywords" content="C3B, ctresb, blog, projetos, desenvolvimento, tecnologia, atualizações, pensamentos" />
+    <meta name="author" content="C3B" />
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Blog do C3B" />
+    <meta property="og:description" content="Meu blog pessoal onde compartilho atualizações de projetos, pensamentos aleatórios e descobertas." />
+    <meta property="og:image" content="https://ctresb.com/src/meta.jpg" /> <!-- Ou uma imagem específica para o blog -->
+    <meta property="og:url" content="https://ctresb.com/blog.html" /> <!-- URL da página do blog -->
+    <meta property="og:type" content="blog" />
+    <meta property="og:site_name" content="C3B" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blog do C3B" />
+    <meta name="twitter:description" content="Meu blog pessoal onde compartilho atualizações de projetos, pensamentos aleatórios e descobertas." />
+    <meta name="twitter:image" content="https://ctresb.com/src/meta.jpg" /> <!-- Ou uma imagem específica para o blog -->
+    <meta name="twitter:site" content="@ctresb_" />
+    <meta name="twitter:creator" content="@ctresb_" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ctresb.com/blog.html" /> <!-- URL da página do blog -->
+
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --heading-color: #111;
+            --link-color: #007bff;
+            --post-bg: #fff;
+            --post-border: #c4e0ff;
+            --post-shadow: rgba(0,0,0,0.05);
+            --subtitle-color: #555;
+            --meta-color: #777;
+            --tag-bg: #e2eafc;
+            --tag-text: #003d99;
+            --tag-border: transparent; /* Added for consistency */
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                 /* Dark Mode Colors - Based on index.html */
+                --bg-color: #363636;
+                --text-color: #f3f3f3;
+                --heading-color: #f3f3f3;
+                --link-color: #ffffff; /* Brighter link for dark bg */
+                --post-bg: #444444; /* From .item-alt bg */
+                --post-border: #999999; /* From .item-alt border */
+                --post-shadow: rgba(0,0,0,0.2);
+                --subtitle-color: #cccccc;
+                --meta-color: #aaaaaa;
+                --tag-bg: #1860b9; /* From dark li bg */
+                --tag-text: #f3f3f3; /* From dark li text */
+                --tag-border: #3590ff; /* From dark li border - added subtle border */
+            }
+
+             /* Optional: Add slight border to dark tag for definition */
+            li.post-item .meta .tag {
+                 border: 1px solid var(--tag-border);
+                 padding: 2px 7px; /* Adjust padding slightly for border */
+            }
+
+             a:hover {
+                /* Optional: slightly different hover for dark */
+                 /* color: #e0e0e0; */
+                 text-decoration: underline; /* Keep underline consistent */
+             }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            box-sizing: border-box;
+            object-fit: cover;
+            font-family: "Fraunces", serif;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transition */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        h1, h2 {
+            color: var(--heading-color);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px; /* Added margin below h2 */
+        }
+
+        /* Container for posts */
+        .posts-container {
+            margin: 20px;
+            max-width: 800px; /* Optional: Limit width for readability */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul.post-list {
+            list-style-type: none;
+        }
+
+        /* Style for each post item */
+        li.post-item {
+            margin-bottom: 40px; /* Space between posts */
+            border-left: 6px solid var(--post-border);
+            padding: 15px 15px 15px 20px; /* Top, Right, Bottom, Left */
+            background-color: var(--post-bg);
+            border-radius: 0 5px 5px 0; /* Optional: round corners */
+            box-shadow: 0 2px 4px var(--post-shadow);
+            display: flex;
+            flex-direction: row; /* Default: side-by-side */
+            gap: 20px; /* Space between image and text */
+            align-items: flex-start; /* Align items top */
+        }
+
+        li.post-item img {
+            max-width: 30%; /* Default width */
+            height: auto;
+            display: block; /* Remove extra space below image */
+            border-radius: 3px; /* Optional: slightly rounded image corners */
+            flex-shrink: 0; /* Prevent image from shrinking too much */
+        }
+
+        .post-text-content {
+             flex-grow: 1; /* Allow text content to fill remaining space */
+        }
+
+
+        li.post-item h3 {
+            font-size: 1.4em; /* Slightly larger title */
+            margin-bottom: 5px;
+            color: var(--heading-color); /* Use heading color */
+        }
+
+        li.post-item h3 a { /* Ensure link inside h3 uses link color */
+             color: var(--link-color);
+        }
+
+
+        li.post-item .subtitle {
+            font-size: 1em;
+            color: var(--subtitle-color);
+            margin-bottom: 15px;
+            font-style: italic; /* Optional: italic subtitle */
+        }
+
+        li.post-item .meta {
+            font-size: 0.9em;
+            color: var(--meta-color);
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Space between date and tag */
+        }
+
+        li.post-item .meta .tag {
+            display: inline-block; /* Allows padding and margin */
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 3px 8px;
+            border-radius: 10px; /* Pill shape */
+            font-size: 0.8em;
+            font-weight: 600;
+            width: fit-content;
+            border: 1px solid transparent; /* Base border */
+        }
+
+        /* Links style - consistent with index */
+        a {
+            text-decoration: none;
+            color: var(--link-color);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Responsive: Mobile Layout --- */
+        @media (max-width: 768px) {
+            li.post-item {
+                flex-direction: column; /* Stack image and text */
+                padding-left: 15px; /* Adjust padding to match others */
+                padding-right: 15px;
+                gap: 15px; /* Adjust gap for vertical layout */
+            }
+
+            li.post-item img {
+                max-width: 100%;     /* Image takes full width */
+                /* margin-bottom: 15px; /* Replaced by gap */
+            }
+
+            .post-text-content {
+                 width: 100%; /* Ensure text content takes full width */
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Meu blog.</h1>
+    <h2>Isso mesmo.</h2>
+
+    <div class="posts-container">
+        <ul class="post-list" id="post-list">
+           <!-- Posts will be loaded here by JavaScript -->
+           <li style="border: none; background: none; box-shadow: none; color: var(--text-color);">Carregando posts...</li> <!-- Placeholder -->
+        </ul>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const postListElement = document.getElementById('post-list');
+        const postsJsonPath = 'posts.json'; // Ensure this path is correct
+
+        function formatDateTime(dateTimeString) {
+            // ... (keep your existing formatDateTime function)
+            if (!dateTimeString) {
+                return 'Data indisponível';
+            }
+            try {
+                const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+                const date = new Date(dateTimeString);
+
+                if (isNaN(date.getTime())) {
+                    throw new Error('Invalid date format');
+                }
+
+                const formattedDate = date.toLocaleDateString('pt-BR', dateOptions);
+                const formattedTime = date.toLocaleTimeString('pt-BR', timeOptions);
+                return `${formattedDate}, ${formattedTime}`;
+            } catch (e) {
+                console.error(`Erro ao formatar data: ${dateTimeString}`, e);
+                return 'Data inválida';
+            }
+        }
+
+        fetch(postsJsonPath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status} ao buscar ${postsJsonPath}`);
+                }
+                return response.json();
+            })
+            .then(posts => {
+                // Clear placeholder/loading message
+                postListElement.innerHTML = '';
+
+                if (!Array.isArray(posts) || posts.length === 0) {
+                     postListElement.innerHTML = '<li style="border: none; background: none; box-shadow: none; color: var(--text-color);">Nenhum post encontrado.</li>'; // Use variable color
+                     return;
+                }
+
+                // Sort posts by date, newest first (handle potential invalid dates)
+                posts.sort((a, b) => {
+                    const dateA = a.datetime ? new Date(a.datetime) : new Date(0); // Treat missing as very old
+                    const dateB = b.datetime ? new Date(b.datetime) : new Date(0);
+                    // Check for invalid dates after attempting creation
+                    const timeA = !isNaN(dateA.getTime()) ? dateA.getTime() : 0;
+                    const timeB = !isNaN(dateB.getTime()) ? dateB.getTime() : 0;
+                    return timeB - timeA; // Descending order
+                });
+
+
+                posts.forEach(post => {
+                    // Basic validation for essential fields
+                    if (!post.title || !post.description || !post.tag || !post.slug) { // Added slug check
+                        console.warn("Pulando post por falta de dados essenciais (título, descrição, tag, slug):", post);
+                        return; // Skip this post
+                    }
+
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('post-item');
+
+                    // Add Image if present
+                    if (post.Image) {
+                        const img = document.createElement('img');
+                        // Use './' to ensure it's relative to the current blog.html directory
+                        img.src = post.Image.startsWith('http') ? post.Image : './' + post.Image.replace(/^\//, ''); // Handle absolute vs relative paths slightly better
+                        img.alt = `Imagem do post: ${post.title}`;
+                        img.loading = 'lazy'; // Improve performance
+                        listItem.appendChild(img);
+                    }
+
+                    // Create container for text content (title, subtitle, meta)
+                    const textContainer = document.createElement('div');
+                    textContainer.classList.add('post-text-content'); // Class for styling
+
+                    // Title with link
+                    const titleHeader = document.createElement('h3');
+                    const titleLink = document.createElement('a');
+                    // Construct URL relative to blog.html location
+                    titleLink.href = `./post/index.html?=${encodeURIComponent(post.slug)}`; // Corrected query param
+                    titleLink.textContent = post.title;
+                    titleHeader.appendChild(titleLink);
+                    textContainer.appendChild(titleHeader);
+
+
+                    // Subtitle (Description)
+                    const subtitle = document.createElement('p');
+                    subtitle.classList.add('subtitle');
+                    subtitle.textContent = post.description;
+                    textContainer.appendChild(subtitle);
+
+                    // Meta info (Date and Tag)
+                    const meta = document.createElement('div'); // Changed to div for better structure
+                    meta.classList.add('meta');
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.classList.add('date');
+                    dateSpan.textContent = formatDateTime(post.datetime); // Format the date
+                    meta.appendChild(dateSpan);
+
+                    const tagSpan = document.createElement('span');
+                    tagSpan.classList.add('tag');
+                    tagSpan.textContent = post.tag;
+                    meta.appendChild(tagSpan);
+
+                    textContainer.appendChild(meta);
+
+                    // Append text container AFTER the image (if image exists) or first if no image
+                    listItem.appendChild(textContainer);
+
+                    postListElement.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Falha ao carregar posts:', error);
+                // Clear placeholder and show error
+                 postListElement.innerHTML = `<li style="border: none; background: none; box-shadow: none; color: red;">Ocorreu um erro ao carregar os posts. Verifique o console (F12) para detalhes.</li>`;
+            });
+    });
+</script>
+</html>

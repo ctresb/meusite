@@ -1,0 +1,11 @@
+[
+    {
+        "title": "Meu primeiro post, uau.",
+        "description": "Sim, eu fiz um blog, é isso aí.",
+        "datetime": "2025-04-01T10:00:00Z",
+        "tag":"Blog",
+        "Image": "./posts-images/01.png",
+        "slug": "primeiro-post",
+        "Content": "[T]Olá, esse é meu blog! :)[/T] [S]Vou usar esse lugar pra tentar postar coisas... Quando der.[/S] [P]Eu sempre gostei da ideia de ter um blog, assim, eu gosto de escrever, mas será que eu [B]SEI[/B] escrever? esse que é o rolê ta ligado. Daí eu pensei \"po, se eu fizer um blog, da pra ir aprimorando\" e ca estamos, no [B][I]C3BLOG[/I][/B].[/P] [P]Ai você pode me perguntar:[/P] [Q]C3... O que você vai postar aqui nesse seu Blog zé?[/Q] [P]E eu te respondo: Eu não faço ideia.[/P] [P]Eu tava pensando em falar sobre tipo... TUDO. Programação, negócios, Inteligência Artificial, sobre meus projetos... Enfim, o que desse vontade ali na hora skdaskdaskd[/P] [P]BOM, é isso, não sei oq escrever mais nessa porra desse blog, por enquanto é isso.[/P]"
+    }
+]
